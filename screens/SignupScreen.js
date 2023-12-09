@@ -5,7 +5,7 @@ import { createUser } from '../util/auth';
 
 function SignupScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-
+   console.log(process.env["REACT_APP_FIREBASE_API_KEY"]);
   async function signupHandler({ email, password }) {
     setIsAuthenticating(true);
     await createUser(email, password);
