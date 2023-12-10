@@ -21,23 +21,24 @@ async function authenticate (mode, email, password) {
     const data = await response.json(); // Parse the response JSON
 
     if (!response.ok) {
-      Alert.alert(data.error.message || "Network response was not ok");
+      console.log(data.error.message || "Network response was not ok");
     }
 
     console.log(`${mode} successful: `, data);
-    return data;
+    const token = response.data.idToken;
+    return token;
   } catch (error) {
-    Alert.alert(`Error with ${mode}: `, error);
+      console.log(`Error with ${mode}: `, error);
     throw error;
   }
   
 }
 
 
-export async function createUser(email, password) {
-   await authenticate("signUp", email, password);
+export function createUser(email, password) {
+   return authenticate("signUp", email, password);
 }
 
 export async function login(email, password) {
-  await authenticate("signInWithPassword", email, password);
+  return authenticate("signInWithPassword", email, password);
 }
