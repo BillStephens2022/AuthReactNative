@@ -1,9 +1,10 @@
-const DATABASE_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
+// const DATABASE_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
 
-export async function createUser(email, password) {
-   console.log(DATABASE_URL);
+async function authenticate(mode, email, password) {
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
+
   try {
-    const response = await fetch(DATABASE_URL, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,10 +24,18 @@ export async function createUser(email, password) {
       throw new Error(data.error.message || "Network response was not ok");
     }
 
-    console.log("Sign up successful:", data);
+    console.log(`${mode} successful: `, data);
     return data;
   } catch (error) {
-    console.error("Error signing up:", error);
+    console.error(`Error with ${mode}: `, error);
     throw error;
   }
+}
+
+export async function createUser(email, password) {
+  await authenticate("signUp", email, password);
+}
+
+export async function login(email, password) {
+  await authenticate("signInWithPassword", email, password);
 }
