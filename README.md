@@ -4,6 +4,8 @@
 
   A simple application implementing authentication on a React Native application.  After signup or login, an authenticated user will see a welcome screen.
 
+  Built with React-Native and Firebase Auth API.
+
   ### Login Screen:
 
   ![Login Screen](./assets/images/login.png)
