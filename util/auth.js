@@ -25,7 +25,7 @@ async function authenticate (mode, email, password) {
     }
 
     console.log(`${mode} successful: `, data);
-    const token = response.data.idToken;
+    const token = data.idToken;
     return token;
   } catch (error) {
       console.log(`Error with ${mode}: `, error);
